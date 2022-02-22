@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stile_signup.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Login</h2>
+        </div>
+        <form id="form" class="form">
+            <div class="form-control">
+                <label for="username">Username</label>
+                <input type="text" placeholder="Username" id="username" />
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="username">Password</label>
+                <input type="password" placeholder="Password" id="password"/>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <button >Sign in</button>
+            <button onclick="window.location.href='index.html'">Sign up</button>
+        </form>
+    </div>
+</body>
+<script>
+    const username = document.getElementById('username')
+    const password = document.getElementById('password')
+    const userRegistrazione = localStorage.getItem('username')
+    const passwordRegistrazione = localStorage.getItem('password')
+
+    
+    document.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        checkInputs();
+    });
+    
+    function checkInputs() {
+        const usernameValue = username.value.trim();
+        const passwordValue = password.value.trim();
+
+        var numErrori = 0
+        
+        if (usernameValue=='admin' && passwordValue=='admin') {
+            adminAccess()
+        }else{
+            if(usernameValue === '') {
+                setErrorFor(username, 'L\'Username non può essere vuoto');
+                numErrori++;
+            }
+            if(passwordValue === '') {
+                setErrorFor(password, 'La Password non può essere vuota');
+                numErrori++;
+            }
+            if (numErrori === 0) {
+            
+            formValido(usernameValue, passwordValue)
+            }
+        }
+        
+    }
+    
+    function setErrorFor(input, message) {
+        const formControl = input.parentElement;
+        const small = formControl.querySelector('small');
+        formControl.className = 'form-control error';
+        small.innerText = message;
+    }
+    function adminAccess() {
+        alert("Login effettuato come Admin!")
+        setTimeout(gestioneArticoli(), 5000)
+    }
+    function formValido(userValue, passwordValue,) {
+        if (userValue===localStorage.getItem('username') && passwordValue===(localStorage.getItem('password'))) {
+            alert("Login effettuato!")
+            setTimeout(home(), 5000)
+        }else{
+            alert("CREDENZIALI SBAGLIATE")
+        }
+    }
+    function gestioneArticoli() {
+        localStorage.setItem('username', "admin")
+        localStorage.setItem('password', "admin")
+        window.location.href = "home.html"
+    }
+    function home() {
+        window.location.href = "home.html";
+    }
+</script>
+</html>

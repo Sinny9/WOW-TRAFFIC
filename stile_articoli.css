@@ -1,0 +1,36 @@
+
+.articolo{
+    width: 200px;
+    padding-left: 0px;
+    border-radius: 1%;
+    display: inline-block;
+    margin-right: 70px;
+    margin-bottom: 40px;
+}
+.articolo legend{
+    font-family: sans-serif;
+    font-size: 19px;
+    font-style: bold;
+}
+
+.articolo fieldset{
+    border-radius: 4%;
+}
+
+.articolo button {
+	background-color: #df6c00;
+	border: 2px solid #030081;
+	border-radius: 4px;
+	color: #fff;
+	display: block;
+	font-family: inherit;
+	font-size: 16px;
+	padding: 10px;
+	margin-top: 20px;
+	width: 100%;
+}
+
+.articolo button:hover{
+    cursor: pointer;
+	background-color: #884200;
+}

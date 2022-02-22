@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stile_signup.css">
+    <title>Registrazione</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Crea un Account</h2>
+        </div>
+        <form id="form" class="form">
+            <div class="form-control">
+                <label for="username">Username</label>
+                <input type="text" placeholder="Username" id="username" />
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="username">Email</label>
+                <input type="email" placeholder="user@mail.com" id="email" />
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="nome">Nome</label>
+                <input type="text" placeholder="Nome " id="nome"/>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="cognome">Cognome</label>
+                <input type="text" placeholder="Cognome" id="cognome"/>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="username">Data di Nascita</label>
+                <input type="date" id="dataDiNascita"/>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="indirizzoConsegne">Indirizzo Consegne</label>
+                <input type="text" placeholder="Indirzzo Consegne" id="indirizzoConsegne"/>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input type="password" placeholder="Password" id="password"/>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="password2">Ripeti Password</label>
+                <input type="password" placeholder="Password " id="password2"/>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            
+            <button >Registrati</button>
+        </form>
+    </div>
+</body>
+<script>
+    const username = document.getElementById('username')
+    const email = document.getElementById('email')
+    const nome = document.getElementById('nome')
+    const cognome = document.getElementById('cognome')
+    const dataDiNascita = document.getElementById('dataDiNascita')
+    const indirizzo = document.getElementById('indirizzoConsegne')
+    const password = document.getElementById('password')
+    const password2 = document.getElementById('password2')
+    
+
+    localStorage.setItem("carrello", "1")
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        checkInputs();
+    });
+    
+    function checkInputs() {
+        const userValue = username.value.trim()
+        const emailValue = email.value.trim()
+        const nomeValue = nome.value.trim()
+        const cognomeValue = cognome.value.trim()
+        const dataDiNascitaValue = dataDiNascita.value.trim()
+        const indirizzoValue = indirizzo.value.trim()
+        const passwordValue = password.value.trim()
+        const password2Value = password2.value.trim()
+        
+        var numErrori = 0
+        
+        if(userValue === '') {
+            setErrorFor(username, 'L\'Username non può essere vuoto');
+            numErrori++;
+        }
+        
+        if(emailValue === '') {
+            setErrorFor(email, 'L\'Email non può essere vuota');
+            numErrori++;
+        }
+        if(nomeValue === '') {
+            setErrorFor(nome, 'Il Nome non può essere vuoto');
+            numErrori++;
+        }
+        if(cognomeValue === '') {
+            setErrorFor(cognome, 'Il Cognome non può essere vuoto');
+            numErrori++;
+        }
+        if( dataDiNascitaValue === '') {
+            setErrorFor(dataDiNascita, 'La Data di Nascita non può essere vuota');
+            numErrori++;
+        }
+        if(indirizzoValue === '') {
+            setErrorFor(indirizzo, 'L\'indirizzo non può essere vuoto');
+            numErrori++;
+        }
+        
+        if(passwordValue === '') {
+            setErrorFor(password, 'La Password non può essere vuota');
+            numErrori++;
+        }
+        
+        if(password2Value === '') {
+            setErrorFor(password2, 'La Password non può essere vuota');
+            numErrori++;
+        } else if(passwordValue !== password2Value) {
+            setErrorFor(password2, 'Le password non combaciano');
+            numErrori++;
+        }
+        if (numErrori === 0) {
+            creaOggettoArticoli()
+            formValido(userValue, emailValue, nomeValue, cognomeValue, dataDiNascitaValue, indirizzoValue, passwordValue)
+            
+        }
+    }
+    
+    function setErrorFor(input, message) {
+        const formControl = input.parentElement;
+        const small = formControl.querySelector('small');
+        formControl.className = 'form-control error';
+        small.innerText = message;
+    }
+    
+    function formValido(userValue, emailValue, nomeValue, cognomeValue,dataDiNascitaValue ,indirizzoValue, passwordValue) {
+        localStorage.setItem('username', userValue)
+        localStorage.setItem('email', emailValue)
+        localStorage.setItem('nome', nomeValue)
+        localStorage.setItem('cognome', cognomeValue)
+        localStorage.setItem('dataNascita', dataDiNascitaValue)
+        localStorage.setItem('indirizzo',indirizzoValue)
+        localStorage.setItem('password', passwordValue)
+        alert("Registrazione Completata!\nVerrai rediretto al Login")
+        setTimeout(vaiLogin(), 2000)
+        
+    }
+    function vaiLogin() {
+        window.location.href = "login.html";
+    }
+
+    function creaOggettoArticoli(){
+        var articolo1Let = {
+            titolo : "Anguria-Tranguilla",
+            prezzo : 1.00 ,
+            iva : 4,
+            index : 1
+        }
+        
+        var articolo2Let = {
+            titolo : "Catrame",
+            prezzo : 10.00 ,
+            iva : 22,
+            index : 2
+        }
+        
+        var articolo3Let = {
+            titolo : "Pancreas",
+            prezzo : 70000.00 ,
+            iva : 4,
+            index : 3
+        }
+        
+        caricaArticoliLStorage(articolo1Let, articolo2Let, articolo3Let)
+        }
+
+    function caricaArticoliLStorage(articolo1Let, articolo2Let, articolo3Let){
+        var articoli = {
+            articolo1 : articolo1Let,
+            articolo2 : articolo2Let,
+            articolo3 : articolo3Let
+        }
+        let articoli_serialized = JSON.stringify(articoli)
+        
+        localStorage.setItem("articoli", articoli_serialized)
+        
+    }
+</script>
+</html>

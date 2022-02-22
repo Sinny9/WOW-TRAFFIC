@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stilePagCarrello.css">
+    <style>
+        body{
+            background-color: rgb(0, 0, 77) ;
+        }
+        fieldset{
+            background-color:white;
+        }
+    </style>
+    <title>Carrello</title>
+</head>
+<body>
+
+    <nav class="navbar">
+        <span class="open-slide">
+          <a href="#" onclick="openSlideMenu()">
+            <svg width="30" height="30">
+                <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
+                <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
+                <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
+            </svg>
+          </a>
+        </span>
+    
+        <ul class="navbar-nav">
+            <li><a href="gestioneAnagraficaUtente.html" id="ciao" style="border-style: solid;border-color: white; border-width: 2px 2px 2px 0px; border-radius: 10%;"></a></li>
+      
+            <li><a href="home.html" style="margin-left: 37%; margin-right: 20%;"> <img class="logo-image" src="logo.png.png" style="margin-top: -29px;height: 120px; width: 220px;" alt="Logo"></a></li>
+         
+          <li> <label id="numArticoli" for="">0</label><a href="paginaCarrello.html" style="margin-left: 10%; margin-top: -1%;"><img class="logo-cart" src="shop_cart.png" alt="icona carrello"><br>Carrello</a></li>
+          
+        </ul>
+      </nav>
+      <div id="side-menu" class="side-nav">
+        <a ><img src="logo.png.png" style="height: 120px;width: 200px; margin-top: -100px;" alt=""></a>
+        <a href="#" class="btn-close" onclick="closeSlideMenu()">&times;</a>
+        <a href="home.html">Home</a>
+        <a href="gestioneAnagraficaUtente.html">Gestione Anagrafica</a>
+        <a href="Documento_sito_sistema_WOW-TRAFFIC®.txt">Scarica Documento Sito Sistema WOW-TRAFFIC®</a>
+        <a href="login.html">Logout</a>
+      </div>
+<!-- 
+      ^
+      | menu -->
+    <div id="stampaDiv">
+        <fieldset>
+        <div id="divT">
+            <legend>Carrello</legend>  
+        </div>
+        
+        <table id="container"></table>
+        </table>
+        <button onClick="buy()" id="pulsante">Acquista</button>
+        </fieldset>
+    </div>
+</body>
+<script>
+ls = window.localStorage;
+
+var lista = ls.carrello;
+var prezzo = ls.prezzo;
+var tab = "";
+var numArticoli = ls.quantityCarrello
+document.getElementById('numArticoli').innerHTML = numArticoli
+
+    var carrello = JSON.parse(lista).sort();
+    var copie = 1;
+    var pz = carrello[0]
+
+    for (i = 0; i < carrello.length; i++) {
+        if (carrello[i] == carrello[i+1]) {
+            copie++
+        } else {
+            tab += "<tr><td><h4>" + carrello[i] + "</h4></td><td id = 'copie" + carrello[i] + "'><p>x" + copie + "</p></td>"+"<td><p></tr>";
+            copie=1
+        }
+    document.getElementById("container").innerHTML = tab + "<tr><td><h4>Totale:</h4></td><td><p>" + prezzo + "€</p></td></tr>"
+
+}
+
+    function buy() {
+        if (carrello == null) {
+            var vuoto = true
+        }
+        if (!vuoto) {
+            alert("Acquisto Effettuato!\nVerrai Reindirizzato alla Home")
+            ls.setItem('carrello', 0)
+            redirect()
+        }else{
+            alert("Selezionare un articolo!")
+            alert("Reindirizzamento alla Home!")
+            redirect()
+        }
+
+        
+    }
+function redirect() {
+    window.location.href="home.html"
+}
+</script>
+<script>
+    document.getElementById('ciao').innerHTML = 'Ciao '+'<span style="background-color:#2aa22a;padding:8px;border-radius:10px">'+localStorage.getItem('nome')+'</span>'
+</script>
+<script>
+    function openSlideMenu(){
+      document.getElementById('side-menu').style.width = '250px';
+      document.getElementById('main').style.marginLeft = '250px';
+    }
+
+    function closeSlideMenu(){
+      document.getElementById('side-menu').style.width = '0';
+      document.getElementById('main').style.marginLeft = '0';
+    }
+</script>
+</html>

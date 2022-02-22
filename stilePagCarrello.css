@@ -1,0 +1,27 @@
+#stampaDiv{
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+
+button {
+	background-color: #df5900;
+	border: 2px solid #030081;
+	border-radius: 4px;
+	color: #fff;
+	display: block;
+	font-family: inherit;
+	font-size: 16px;
+	padding: 10px;
+	margin-top: 20px;
+}
+
+button:hover{
+    background-color: #c300ff;
+    color: rgb(146, 146, 146);
+    cursor: pointer;
+}
+
+fieldset{
+    border-radius: 2%;
+}

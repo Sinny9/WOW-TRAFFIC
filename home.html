@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="stile_articoli.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="open-slide">
+      <a href="#" onclick="openSlideMenu()">
+        <svg width="30" height="30">
+            <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
+            <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
+            <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
+        </svg>
+      </a>
+    </span>
+
+    <ul class="navbar-nav">
+      <li><a href="gestioneAnagraficaUtente.html" id="ciao" style="border-style: solid;border-color: white; border-width: 2px 2px 2px 0px; border-radius: 10%;"></a></li>
+      <li><a href="home.html" style="margin-left: 25%; margin-right: 20%;"> <img class="logo-image" src="logo.png.png" style="margin-top: -29px;height: 120px; width: 220px;" alt="Logo"></a></li>
+      
+      <li> <label id="numArticoli" for="">0</label><a href="paginaCarrello.html" style="margin-left: 10%; margin-top: -1%;"><img class="logo-cart" src="shop_cart.png" alt="icona carrello"><br>Carrello</a></li>
+      
+    </ul>
+  </nav>
+
+  <div id="side-menu" class="side-nav">
+    <a ><img src="logo.png.png" style="height: 120px;width: 200px; margin-top: -100px;" alt=""></a>
+    <a href="#" class="btn-close" onclick="closeSlideMenu()">&times;</a>
+    <div id="gestioneDinamica">
+      <a href="gestioneAnagraficaUtente.html">Gestione Anagrafica</a>
+    </div>
+    <a href="paginaCarrello.html">Carrello</a>
+    <a href="Documento_sito_sistema_WOW-TRAFFIC®.txt">Scarica Documento Sito Sistema WOW-TRAFFIC®</a>
+    <a href="login.html">Logout</a>
+  </div>
+
+
+  
+  <div id="main" style="color:white;background-color: #0e0279;padding: 2px;margin-top: 50px;padding-left: 15px; padding-bottom: 25px;">
+    <h1 id="scrittaBenvenuto" style="margin-bottom: 25px;"></h1>
+    <!-- prdotti -->
+    <div style="height: 50px;padding-left: 30px;background-color: white;color:black; margin-bottom: 20px;margin-left: -20px;"><h1>Acquista</h1></div>
+      <div id="articolo1" class="articolo">
+      </div>
+      <div id="articolo2" class="articolo">
+      </div>
+      <div id="articolo3" class="articolo">
+      </div>
+    </div>
+
+
+
+    
+
+  </div>
+  <!-- <script src="caricaArticoli.js"></script> -->
+<script>
+    var lista = [];
+    var prezzoTot = 0;
+
+    function add1(){
+      var prezzo = 1
+
+      lista.push("Anguria-Tranguilla")
+
+      prezzoTot += prezzo
+
+      var carrello = JSON.stringify(lista);
+      var numArticoli = parseInt(lista.length)
+
+      ls.setItem('quantityCarrello', numArticoli)
+      ls.setItem("prezzo", prezzoTot);
+      ls.setItem("carrello", carrello);
+
+      document.getElementById('numArticoli').innerHTML = numArticoli
+
+    }
+    function add2(){
+      var prezzo = 10
+
+      lista.push("Catrame")
+
+      prezzoTot += prezzo
+
+      var carrello = JSON.stringify(lista);
+      var numArticoli = parseInt(lista.length)
+
+      ls.setItem('quantityCarrello', numArticoli)
+      ls.setItem("prezzo", prezzoTot);
+      ls.setItem("carrello", carrello);
+      
+      document.getElementById('numArticoli').innerHTML = numArticoli
+
+    }
+    function add3(){
+      var prezzo = 70000
+
+      lista.push("Pancreas")
+
+      prezzoTot += prezzo
+
+      var carrello = JSON.stringify(lista);
+      var numArticoli = parseInt(lista.length)
+
+      ls.setItem('quantityCarrello', numArticoli)
+      ls.setItem("prezzo", prezzoTot);
+      ls.setItem("carrello", carrello);
+      
+      document.getElementById('numArticoli').innerHTML = numArticoli
+
+    }
+</script>
+  <script>
+    document.addEventListener('submit', e => {e.preventDefault()
+      checkInputs()
+    })
+
+    ls = window.localStorage;
+    var p = new URLSearchParams(document.location.search.substring(1));
+
+    var articoli_de = JSON.parse(localStorage.getItem('articoli'))
+
+
+    var articolo1 = articoli_de.articolo1
+    var articolo2 = articoli_de.articolo2
+    var articolo3 = articoli_de.articolo3
+    //                                                                                                                                                                                                                                                         
+    document.getElementById('articolo1').innerHTML = document.getElementById('articolo1').innerHTML = "<fieldset><legend>"+articolo1.titolo+"</legend><h3>"+"Prezzo : €"+articolo1.prezzo+"</h3><h5>"+"IVA : "+articolo1.iva+" %"+"</h5><button onClick = add1()"+">"+"Compra"+"</button></fieldset>"
+    document.getElementById('articolo2').innerHTML = document.getElementById('articolo2').innerHTML = "<fieldset><legend>"+articolo2.titolo+"</legend><h3>"+"Prezzo : €"+articolo2.prezzo+"</h3><h5>"+"IVA : "+articolo2.iva+" %"+"</h5><button onClick = add2()"+">"+"Compra"+"</button></fieldset>"
+    document.getElementById('articolo3').innerHTML = document.getElementById('articolo3').innerHTML = "<fieldset><legend>"+articolo3.titolo+"</legend><h3>"+"Prezzo : €"+articolo3.prezzo+"</h3><h5>"+"IVA : "+articolo3.iva+" %"+"</h5><button onClick = add3()"+">"+"Compra"+"</button></fieldset>"
+
+    
+  </script>
+
+  <script>
+    if(localStorage.getItem('username') === "admin"){
+      document.getElementById('ciao').innerHTML = 'Ciao '+'<span style="background-color:#2aa22a;padding:8px;border-radius:10px">'+localStorage.getItem('username')+'</span>'
+      document.getElementById("gestioneDinamica").innerHTML = "<a href="+"paginaCaricamentoArticoli.html>"+'Caricamento Articoli'+"</a>"
+    }
+  </script>
+  <script>
+    if(localStorage.getItem('username') !== "admin"){
+      document.getElementById('ciao').innerHTML = 'Ciao '+'<span style="background-color:#2aa22a;padding:8px;border-radius:10px">'+localStorage.getItem('nome')+'</span>'
+    }
+    document.getElementById('scrittaBenvenuto').innerHTML = 'Bentornato '+'<span style="background-color:#2aa22a;padding:8px;border-radius:10px">'+localStorage.getItem('username')+'</span>'
+
+    function openSlideMenu(){
+      document.getElementById('side-menu').style.width = '250px';
+      document.getElementById('main').style.marginLeft = '250px';
+    }
+
+    function closeSlideMenu(){
+      document.getElementById('side-menu').style.width = '0';
+      document.getElementById('main').style.marginLeft = '0';
+    }
+  </script>
+</body>
+</html>
