@@ -63,6 +63,10 @@ ls = window.localStorage;
 
 var lista = ls.carrello;
 var prezzo = ls.prezzo;
+var articoli = JSON.parse(ls.articoli)
+
+console.log(JSON.parse(ls.articoli))
+
 var tab = "";
 var numArticoli = ls.quantityCarrello
 document.getElementById('numArticoli').innerHTML = numArticoli
@@ -72,11 +76,32 @@ document.getElementById('numArticoli').innerHTML = numArticoli
     var pz = carrello[0]
 
     for (i = 0; i < carrello.length; i++) {
+        let art = {prezzo : 0, iva : 0}
         if (carrello[i] == carrello[i+1]) {
             copie++
         } else {
-            tab += "<tr><td><h4>" + carrello[i] + "</h4></td><td id = 'copie" + carrello[i] + "'><p>x" + copie + "</p></td>"+"<td><p></tr>";
-            copie=1
+            switch (carrello[i]) {
+                case 'Anguria':
+                        art.prezzo = articoli.articolo1.prezzo
+                        art.iva = articoli.articolo1.iva
+                        console.log("aanguria")
+                    break;
+                case 'Catrame':
+                        art.prezzo = articoli.articolo2.prezzo
+                        art.iva = articoli.articolo2.iva
+                        console.log("catramee") 
+                    break;
+                case 'Tesla':
+                        art.prezzo = articoli.articolo3.prezzo
+                        art.iva = articoli.articolo3.iva
+                        console.log("etslsla")
+                    break;
+                default:
+                    break;
+            }
+            tab += "<tr><td><h4>" + carrello[i] +"<td><p>"+art.prezzo+"€</td>"+"<td><p>"+art.iva+"%</td>" + "</h4></td><td id = 'copie" + carrello[i] + "'>"+" <p>x" + copie + "</p></td>"+"</tr>";
+                console.log("prezzo articolo",art.prezzo)
+                copie=1
         }
     document.getElementById("container").innerHTML = tab + "<tr><td><h4>Totale:</h4></td><td><p>" + prezzo + "€</p></td></tr>"
 
